@@ -1,0 +1,46 @@
+ //
+// Returns the probability (0-100%) of frequent lightning based on Wolf 2006, Table 2
+//
+Product
+{
+Name = "LTGP"  // Lightning probability
+ Category
+   {
+    Missing = 0      // physical value for ND
+    Minimum = 0      // category minimum value
+    Maximum = 100      // category maximum value
+    Units   = "%"
+
+    ColorTable      // color table for category
+     {
+      Units    = "%"
+      Step     = 10
+
+      Color[100] = rgb( 128, 128, 128 )
+      Color[ 90] = rgb( 255, 255, 255 )                     // white to gray, 90 to 100
+      Color[ 80] = gradient( rgb( 255,   0, 255 ), rgb( 128,   0, 128 ) )   // purple gradient, 80 to 90
+      Color[ 50] = gradient( rgb( 255,   0,   0 ), rgb( 160,   0,   0 ) )   // red gradient, 50 to 80
+      Color[ 25] = gradient( rgb( 255, 255,   0 ), rgb( 255, 128,   0 ) )   // yellow/orange gradient, 25 to 50
+      Color[  5] = gradient( rgb(   0, 255,   0 ), rgb(   0, 128,   0 ) )   // green gradient, 5 to 25
+      Color[  0] = solid( rgb( 0, 0, 0, 0 ) )                  // transparent up to 5%
+     }
+
+   }
+
+}
+Program
+{
+float kft;
+Curve prob_frequent = // curve defined by points in Table 2
+{
+{ 3, 0 },
+{ 6, 8 },
+{ 9, 32 },
+{ 12.5, 48 },
+{ 16.5, 91 },
+{ 18, 96 }
+};
+// height of 40 dbz above -10C in kft
+kft = 0.0032808 * ( HGTfromBR( 40 ) - HGTfromTEMP( -10 ) );
+return prob_frequent[kft];
+}

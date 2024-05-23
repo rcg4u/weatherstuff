@@ -1,0 +1,81 @@
+//
+//    Forecasting First Cloud-to-Ground (CG) strike of day in area of growing cumulus clouds 
+//
+//
+//    ***************************************************************************************************
+//
+//    Define UDP product named CG40 for 1st CG strike. 
+//
+//    What is needed is height of -10C from hourly RAP model sounding located closest to area of growing cumulus/towering cumulus
+//    clouds. All colors are used to provide height of 40dBZ relative to -10C level. Examples...
+//
+//    BASE OF ORANGE COLOR indicates 40dBZ height has reached 5K ft below -10C height, indicating strentghening updrafts. 
+//    BASE OF RED COLOR indicates 40dBZ height has reached -10C height, and first CG strike is expected within minutes.
+//
+//    NOTE:  35dBZ "can" be substituted for 40dBZ. However, research has shown that although using 35dBZ provides more lead time,
+//    there will be more false alarms. Read below.    
+//   
+//    ***************************************************************************************************
+//
+//    Background Information
+//
+//    Use to forecast first cloud-to-ground (CG) lightning strike by monitoring height and changes of either 40 dBZ echo, or 35 dBZ echo
+//    (if user modifies code below to substitute 35dBZ for all instances of 40dBZ below).  
+//
+//    WFO Raleigh study found that when 40 dBZ echo reaches height of -10C temperature, average lead time to first CG lightning strike
+//    was 14.7 min. Another study by others using same criteria showed lead times from 4 to 33 min. To increase average lead time to 17.5 
+//    min., you can use 35 dBZ echo instead of 40 dBZ echo per study, but False Alarm Rate will be higher.
+//
+//    INFO:  If cell briefly intensifies to 40 dBZ at -10C height (red color range), but 40 dBZ echo DOES NOT extend higher into yellow,
+//    purple or blue ranges, updraft has stopped or is weakening and CG lightning is not likely. But if echo continues to extend upward
+//    into other color ranges, updraft is continuing (40 dBZ echo is increasing in height) and first CG strike will soon occur. ORANGE
+//    COLOR RANGE IS INCLUDED TO PROVIDE A HEADS UP that 40 dBZ echo is approaching red color range, the base of which is
+//    height of -10C.
+//
+//    *** Besides radar, use VIS, IR, and during daytime especially Day Cloud Phase Distinction (JMA) satellite imagery to monitor cell
+//    growth, along with HRRR Model forecasts of CAPE, LI, etc. for potential strengthening or weakening of convection.cell. ***
+//
+
+Product
+{
+   Name = "CG40"
+   min_br_required = 40.0   // increase UDP performance by skipping all columns of radar data not containing 40dBZ value  
+
+   Category 
+  {
+    Missing = 0		// physical value for ND
+    Minimum = -5.0		// category minimum value
+    Maximum = 20.0	// category maximum value
+    Units   = "kft"
+
+    ColorTable		// color table for category
+    {
+      Units = "kft"
+      Step   = 5
+      decimals = 1
+
+      Color[-5.0]  = solid(rgb( 255, 127, 0 ))      // orange, base of color 5K ft below -10C height    (heads up 40dBZ approaching -10C level)   
+      Color[0.0]   = solid(rgb( 255, 0, 0 ))          // red, base of color IS height in ft of -10C               (40dBZ has reached -10C level)    
+      Color[5.0]   = solid(rgb( 255, 255, 0 ))      // yellow, base of color 5K ft above -10C                 (rest of colors mean updraft continues) 
+      Color[10.0] = solid(rgb( 171, 130, 255 ))  // purple, base of color 10K ft above -10C
+      Color[15.0] = solid(rgb( 0, 127, 255 ))      // blue, base of color 15K ft above -10C
+      Color[20.0] = solid(rgb( 0, 127, 255 ))      // blue, top of color 20K ft above -10C
+    }
+  }
+}
+
+//******************************************************************************************************
+//
+//    Program determines 40dBZ height (m) from program category BR, and height (m) of -10C from RUC model sounding, then converts
+//    m to ft and returns kft result.
+//    
+
+Program
+{
+  float kft;
+  float br;
+
+  kft = 0.0032808 * (HGTfromBR(40) - HGTfromTEMP(-10) );
+
+  return kft;
+}

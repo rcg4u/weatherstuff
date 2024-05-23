@@ -1,0 +1,19 @@
+;-----------------------------------------------------
+;  'WSI' Infrared Color Table
+;  almanydesigns.com/grx
+
+units: ºC
+step: 10
+product: IR
+
+color4: 20 0 0 0 0
+color: -19.99 212 222 232
+color: -20 160 235 235
+color: -30 49 93 146 
+color: -35 0 75 180
+color: -40 0 130 0
+color: -50 230 230 0
+color: -60 195 97 37
+color: -70 170 11 27
+color: -80 114 0 139
+color: -110 255 255 255

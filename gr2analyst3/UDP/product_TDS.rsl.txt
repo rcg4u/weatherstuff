@@ -1,0 +1,61 @@
+
+
+//******************************************************************************
+
+Product
+ {
+  Name = "TDS"		// Unique name for product
+
+  Category
+   {
+    Missing = 0		// physical value for ND
+    Minimum = 0		// category minimum value
+    Maximum = 100		// category maximum value
+    Units   = "%"
+
+    ColorTable		// color table for category
+     {
+      Units    = "%"
+      Step     = 10
+
+      Color[100] = rgb( 255, 255, 255 )
+      Color[ 70] = rgb( 128, 128, 128 )							// white to gray, 90 to 100
+      Color[ 60] = gradient( rgb( 255,   0, 255 ), rgb( 128,   0, 128 ) )	// purple gradient, 80 to 90
+      Color[ 50] = gradient( rgb( 255,   0,   0 ), rgb( 160,   0,   0 ) )	// red gradient, 50 to 80
+      Color[ 40] = gradient( rgb( 255, 255,   0 ), rgb( 255, 128,   0 ) )	// yellow/orange gradient, 25 to 50
+      Color[ 30] = gradient( rgb(   0, 255,   0 ), rgb(   0, 128,   0 ) )	// green gradient, 5 to 25
+      Color[ 10] = gradient( rgb( 164, 164, 255 ), rgb( 100, 100, 192 ) )
+     }
+
+   }
+
+
+  min_br_required = 35
+  resolution = high
+ }
+
+
+//******************************************************************************
+
+Program
+ {
+  float prob;
+  float br;
+
+
+  br = BRfromHGT( constants.hgt_lowest );
+  if( br >= 35 )
+    {
+     prob = weight( 35, br, 45 ) *
+            trapezoid( 0.10, 0.30, CCfromHGT( constants.hgt_lowest ), 0.80, 0.90 );
+    }
+   else
+    {
+     prob = 0;
+    }
+
+  return 100 * prob;
+ }
+
+
+

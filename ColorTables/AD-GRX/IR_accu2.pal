@@ -1,0 +1,57 @@
+;-----------------------------------------------------
+; 'AccuWeather' Infrared Color Table
+;  almanydesigns.com/grx
+
+Product: IR
+Units: °C
+Step:  10
+
+
+color4: 50 	0 0 0 0
+Color:	-38	185	224	224
+Color:	-39	148	224	224
+Color:	-40	111	224	224
+Color:	-41	74	224	224
+Color:	-42	37	224	224
+Color:	-43	0	224	184
+Color:	-44	0	224	138
+Color:	-45	0	224	92
+Color:	-46	0	224	46
+Color:	-47	0	224	0
+Color:	-48	32	232	0
+Color:	-49	64	240	0
+Color:	-50	96	248	0
+Color:	-51	128	255	0
+Color:	-52	160	255	0
+Color:	-53	192	255	0
+Color:	-54	224	255	0
+Color:	-55	255	230	0
+Color:	-56	255	207	0
+Color:	-57	255	184	0
+Color:	-58	255	161	0
+Color:	-59	255	138	0
+Color:	-60	255	115	0
+Color:	-61	255	92	0
+Color:	-62	255	69	0
+Color:	-63	255	46	0
+Color:	-64	255	23	0
+Color:	-65	244	0	21
+Color:	-66	233	0	42
+Color:	-67	222	0	63
+Color:	-68	211	0	84
+Color:	-69	201	0	106
+Color:	-70	190	0	127
+Color:	-71	179	0	148
+Color:	-72	169	0	170
+Color:	-73	158	0	191
+Color:	-74	147	0	212
+Color:	-75	137	0	234
+Color:	-76	144	32	255
+Color:	-77	160	64	255
+Color:	-78	176	96	255
+Color:	-79	192	128	255
+Color:	-80	208	160	255
+Color:	-81	224	192	255
+Color:	-82	240	224	255
+Color:	-83	255	255	255
+Color:  -90     255     255     255

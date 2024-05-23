@@ -1,0 +1,85 @@
+
+
+//******************************************************************************
+
+Product
+ {
+  Name = "GUST"
+
+  Category
+   {
+    Missing = 0		// physical value for ND
+    Minimum = 0		// category minimum value
+    Maximum = 100		// category maximum value
+    Units   = "mps"     // internal units are meters per second
+
+    ColorTable		// color table for category
+     {
+      Units    = "%"
+      Step     = 10
+      Units    = "kts"
+      Scale    = 1.94384449      // convert mps to kts for this color table
+
+      Color[70] = rgb( 255, 255, 255 )
+      Color[60] = rgb( 128, 128, 128 )							// white to gray, 60 to 70
+      Color[50] = gradient( rgb( 255,   0, 255 ), rgb( 128,   0, 128 ) )	// purple gradient, 50 to 60
+      Color[40] = gradient( rgb( 255,   0,   0 ), rgb( 160,   0,   0 ) )	// red gradient, 40 to 50
+      Color[30] = gradient( rgb( 255, 255,   0 ), rgb( 255, 128,   0 ) )	// yellow/orange gradient, 30 to 40
+      Color[20] = gradient( rgb(   0, 255,   0 ), rgb(   0, 128,   0 ) )	// green gradient, 20 to 30
+      Color[10] = gradient( rgb( 164, 164, 255 ), rgb( 100, 100, 192 ) )      // blue gradient, 10 to 20
+     }
+    
+   }
+
+ }
+
+
+//******************************************************************************
+//
+// Combine VIL and ET to estimate potential wet microburst speed
+//
+
+Program
+ {
+  float vil;
+
+
+  //--------------------------- Calculate VIL ----------------------------------
+  //
+  //  enumerate layers and perform VIL summation
+  //
+  //  calc average DBZ in the layer
+  //  cap DBZ at 56
+  //  Z  = 10 ^ (DBZ/10)
+  //  Ze = Z ^ (4/7)
+  //  multiply by layer depth
+  //
+
+  vil = 0;
+
+  enumerate layers
+   {
+    float avg_br;
+
+    avg_br  = ( BRfromHGT( layer.bottom ) + BRfromHGT( layer.top ) ) / 2;   // average DBZ
+
+    vil += pow( 10, min( avg_br, 56 ) * 4/70 ) * layer.depth;               // convert to Z, power 4/7, etc
+   }
+
+  vil *= 3.44e-6;    // apply constant to get actual vil
+
+
+  //------------------- Calculate wet microburst speed -------------------------
+  //
+  // 1. scale VIL
+  // 2. subtract from VIL scaled ET (which is the height of 18.5 dbz) squared
+  // 3. take square root of the resulting mess
+  //
+
+  float gust;
+
+  gust = pow( 20.628571 * vil - 3.125e-6 * pow( HGTfromBR( 18.5 ), 2 ), 0.5 );
+
+  return max( 0, gust );
+ }
+

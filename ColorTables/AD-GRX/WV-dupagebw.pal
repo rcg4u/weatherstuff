@@ -1,0 +1,12 @@
+;-----------------------------------------------------
+;  'College of DuPage' BW WaterVapor Color Table
+;  almanydesigns.com/grx
+
+Product: WV
+Units: 256
+Step: 15
+
+Color:  0  0 0 0  19 19 19
+Color:  145  19 19 19  255 255 255
+Color:  223  255 255 255  255 255 255
+Color:  255  255 255 255

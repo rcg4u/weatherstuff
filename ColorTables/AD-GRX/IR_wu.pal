@@ -1,0 +1,18 @@
+;-----------------------------------------------------
+;  'WUnderground' Infrared Color Table
+;  almanydesigns.com/grx
+
+
+Product: IR
+Units: °C
+Step:  10
+
+
+Color4:  10   81 81 81  0
+Color4: -20   255 255 255 255
+Color:  -40   0 109 179 0 148 229
+Color:  -50   224 209 0 152 137 5 
+Color:  -70   224 5 11 229 160 1
+Color:  -80   255 158 249 255 158 249
+Color:  -90   255 227 253 255 227 253
+

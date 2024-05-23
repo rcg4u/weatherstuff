@@ -1,0 +1,171 @@
+
+Product
+ {
+  // NEXRAD Hydroclassification Algorithm for GRAnalyst v3.0
+  Name     = "HCA"      // product name is HCA
+  // Resolution = high
+
+  min_br_required = 0
+
+  Category
+   {
+    Missing = 13      // physical value for ND
+    Minimum = 0       // category minimum value
+    Maximum = 13      // category maximum value
+    Units   = "%"     // no internal unit
+
+    ColorTable        // color table for category
+     {
+      Step     = 1
+      Units    = "type"
+      Scale    = 1      // no unit conversion needed
+      Decimals = 0
+
+
+      Color[13] = solid( rgb( 000, 000, 000 ) ) // Undefined
+      Color[12] = solid( rgb( 255, 000, 000 ) ) // Debris (Dark Red)
+      Color[11] = solid( rgb( 128, 064, 000 ) ) // Chaff (Brown)
+      Color[10] = solid( rgb( 255, 128, 000 ) ) // Biological (Orange)
+      Color[9]  = solid( rgb( 255, 255, 000 ) ) // Clutter/AP (Yellow)
+      Color[8]  = solid( rgb( 255, 128, 255 ) ) // Ice Crystals (Light Pink)
+      Color[7]  = solid( rgb( 255, 000, 255 ) ) // Graupel (Dark Pink)
+      Color[6]  = solid( rgb( 000, 000, 255 ) ) // Wet Snow (Dark Blue)
+      Color[5]  = solid( rgb( 128, 255, 255 ) ) // Dry Snow (Light Blue)
+      Color[4]  = solid( rgb( 255, 128, 128 ) ) // Hail or Rain/Hail Mix (Light Red)
+      Color[3]  = solid( rgb( 000, 128, 000 ) ) // Heavy Rain (Dark Green)
+      Color[2]  = solid( rgb( 000, 192, 000 ) ) // Big Drops (Medium Green)
+      Color[1]  = solid( rgb( 128, 255, 128 ) ) // Light to Moderate Rain (Light Green)
+      Color[0]  = solid( rgb( 128, 128, 128 ) ) // Unknown (Gray)
+
+      Label[13.5] = "UD"
+      Label[12.5] = "DB"
+      Label[11.5] = "CH"
+      Label[10.5] = "BI"
+      Label[ 9.5] = "AP"
+      Label[ 8.5] = "IC"
+      Label[ 7.5] = "GR"
+      Label[ 6.5] = "WS"
+      Label[ 5.5] = "DS"
+      Label[ 4.5] = "HA"
+      Label[ 3.5] = "HR"
+      Label[ 2.5] = "BD"
+      Label[ 1.5] = "LR"
+      Label[ 0.5] = "UK"
+     }
+   }
+ }
+
+
+
+Program
+ {
+  float br;       // initialize base reflectivity variable
+  float cc;       // initialize correlation coefficient variable
+  float zdr;      // initialize differential reflectivity variable
+  float kdp;      // initialize specific differential phase variable
+  float cat;      // initialize raw HCA variable
+  float cat2;     // initialize final HCA variable
+  cat = 0;        // initialize category variable
+  cat2 = 0;       // initialize final category variable
+
+  br  = BRfromHGT(constants.hgt_lowest);   // Take the BR from base scan
+  cc  = CCfromHGT(constants.hgt_lowest);   // Take the CC from base scan
+  zdr = ZDRfromHGT(constants.hgt_lowest);  // Take the ZDR from base scan
+  kdp = KDPfromHGT(constants.hgt_lowest);  // Take the KDP from base scan
+
+
+  if( BR < 0 )   // 
+   {
+    return constants.ND;
+   }
+
+
+  if( BR >= 5    && BR <= 50 &&
+      CC >= 0.97 && CC <= 1.01 &&
+      ZDR >= 0.0 && ZDR <= 6.0 &&
+      KDP >= 0.0 && KDP <= 1.0 )
+    {
+     cat = 1; // Light to Moderate Rain (Light Green)
+    }
+   elseif( BR  >= 10   && BR  <= 50   &&
+           CC  >= 0.92 && CC  <= 1.01 &&
+           ZDR >= 2.5  && ZDR <= 7.0  &&
+           KDP >= 0.0  && KDP <= 2.0     )
+    {
+     cat = 2; // Big Drops (Medium Green)
+    }
+   elseif( BR  >= 40   && BR  <= 60   &&
+           CC  >= 0.95 && CC  <= 1.00 &&
+           ZDR >= 0.5  && ZDR <= 8.0  &&
+           KDP >= 1.0  && KDP <= 5.0     )
+    {
+     cat = 3; // Heavy Rain (Dark Green)
+    }
+   elseif( BR  >= 45   && BR  <= 80   &&
+           CC  >= 0.75 && CC  <= 1.00 &&
+           ZDR >= -0.3 && ZDR <= 4.5  &&
+           KDP >= -2.0 && KDP <= 10.0    )
+    {
+     cat = 4; // Hail or Rain/Hail Mix (Light Red)
+    }
+   elseif( BR  >= 5    && BR  <= 35   &&
+           CC  >= 0.97 && CC  <= 1.01 &&
+           ZDR >= -0.3 && ZDR <= 1.5  &&
+           KDP >= -1.0 && KDP <= 0.5     )
+    {
+     cat = 5; // Dry Snow (Light Blue)
+    }
+   elseif( BR  >= 25   && BR  <= 50    &&
+           CC  >= 0.88 && CC  <= 0.985 &&
+           ZDR >= 0.5  && ZDR <= 3.0   &&
+           KDP >= -1.0 && KDP <= 0.5      )
+    {
+     cat = 6; // Wet Snow (Dark Blue)
+    }
+   elseif( BR  >= 30   && BR  <= 55   &&
+           CC  >= 0.92 && CC  <= 1.01 &&
+           ZDR >= -0.3 && ZDR <= 2.2  &&
+           KDP >= -2.0 && KDP <= 2.0     )
+    {
+     cat = 7; // Graupel (Dark Pink)
+    }
+   elseif( BR  >= 0    && BR  <= 25   &&
+           CC  >= 0.95 && CC  <= 1.01 &&
+           ZDR >= -1.0 && ZDR <= 5.0  &&
+           KDP >= -1.0 && KDP <= 0.5     )
+    {
+     cat = 8; // Ice Crystals (Light Pink)
+    }
+   elseif( BR  >= 0                    &&
+           ZDR >= -4.0 && ZDR <= 2.0   &&
+           CC  >= 0.7  && CC  <= -0.95    )
+    {
+     cat = 9; // Clutter/AP (Yellow)
+    }
+   elseif( BR  >= 0                 &&
+           ZDR >= 0.0 && ZDR <= 7.0 &&
+           CC  >= 0.5 && CC  <= 0.9    )
+    {
+     cat = 10; // Biological (Orange)
+    }
+   elseif( BR  >= 0                 &&
+           ZDR >= 1.0 && ZDR <= 7.0 &&
+           CC  >= 0.2 && CC  <= 0.7    )
+    {
+     cat = 11; // Chaff (Brown)
+    }
+   elseif( BR  >= 0                  &&
+           ZDR >= -0.5 && ZDR <= 2.0 &&
+           CC  >= 0.2  && CC  <= 0.9    )
+    {
+     cat = 12; // Debris (Dark Red)
+    }
+   else
+    {
+     cat = 0; // Unknown (Gray)
+    }
+
+
+  return cat + 0.5;   // Add 0.5 to position value in middle of its range
+ }
+

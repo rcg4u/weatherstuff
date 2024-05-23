@@ -1,0 +1,70 @@
+//***************************************************************************
+//***************************************************************************
+//   Script to use BR and ZDR to calculate a rainfall rate
+//   Based on a Z/ZDR relationship R = 0.0067 * Z^(0.93)/(10^(0.343)*ZDR)
+//***************************************************************************
+//***************************************************************************
+Product
+ {
+  Name = "ZDRR"              // product name is ZDRR, Rainfall Rate using Z/ZDR relationship
+
+  min_br_required = 18       // include only BR above 18 to eliminate likely non-meteorological echoes
+
+//  Resolution = high
+
+  Category 
+   {
+    Missing = 0
+    Minimum = 0
+    Maximum = 12
+    Units   = "in/hr"
+	
+    ColorTable
+     {
+      Units = "in/hr"
+      Step  = 1
+
+      Color[   12] =           rgb( 128, 128, 128 )
+      Color[    6] =           rgb( 255, 255, 255 )
+      Color[    4] = gradient( rgb( 247, 130, 190 ), rgb( 255, 255, 255 ) )
+      Color[    2] = gradient( rgb( 218,   0,   0 ), rgb( 128,   0,   0 ) )
+      Color[    1] = gradient( rgb( 255, 255,  96 ), rgb( 255, 144,  70 ) )
+      Color[  0.5] = gradient( rgb(  32, 200, 180 ), rgb(  32, 220,  32 ) )
+      Color[ 0.25] = gradient( rgb(   0,   0, 152 ), rgb(  35, 152, 210 ) )
+	Color[  0.1] =           rgb(  80,   0, 200 )                            // purple gradient
+      Color[    0] = gradient( rgb( 140, 120, 180 ), rgb( 100,  80, 140 ) )
+     }
+   }
+ }
+
+
+//**********************************************************************
+Program
+ {
+
+  enumerate levels                                                   // enumerate all levels
+   {
+    float BR;
+
+    BR = BRfromHGT( level.height );                                  // sample BR 
+
+    if( BR > 18 )                                                    // if BR > 18, do calculation and return result
+     {
+      float Z;                                                       // declare variables in the calculation
+      float ZDR;                                                     // 
+      float RR;                                                      //
+
+      Z   = pow( 10, BR / 10 );                                      // convert BR from dbz to z
+      ZDR = ZDRfromHGT( level.height );                              // sample ZDR
+
+      RR = 0.0067 * pow( Z , 0.927 ) / ( pow( 10 , 0.343 ) * ZDR );  // compute rain rate from Z and ZDR in mm/hr
+
+      return min( 0.0393701 * RR, 12.0 );                            // output rain rate in in/hr capped at 12 in/hr
+     }
+
+    break;								               // break out of enum on first level
+   }
+  
+  return constants.ND;                                               // return no data
+ }
+

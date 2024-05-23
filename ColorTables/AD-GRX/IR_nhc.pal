@@ -1,0 +1,16 @@
+;-----------------------------------------------------
+;  'NHC' Infrared Color Table
+;  almanydesigns.com/grx
+
+units: ºC
+step: 10
+product: IR
+
+
+color: 50 0 0 0
+color: -20 0 0 252
+color: -30 0 252 0
+color: -50 252 0 0
+color: -70 252 248 248
+color: -80 178 178 178 216 216 216
+color: -110 252 252 252

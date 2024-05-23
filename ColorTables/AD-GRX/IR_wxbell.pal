@@ -1,0 +1,21 @@
+;-----------------------------------------------------
+;  'WeatherBell' Infrared Color Table
+;  almanydesigns.com/grx
+
+Product: IR
+Units: °C
+Step:  10
+
+
+color4:  20   220 220 220  0
+color4: -20   220 220 220  255
+color: -25 0 140 192 0 255 255
+color: -30 0 13 122 0 127 185
+color: -40 0 191 29 0 0 115
+color: -50 230 255 0 0 253 2
+color: -60 254 26 0 255 255 0
+color: -70 25 13 13 255 0 0
+color: -80 230 230 230 0 0 0
+color: -90 115 36 147 221 102 186
+
+

@@ -1,0 +1,72 @@
+FWLX, FWLX, 35.254963, -87.325317, 220, 1, TN, WLLX X-Band
+TAMU, TAMU, 30.6177, -96.3365, 566, 1, TX, Texas A&M ADRAD
+tadw klwx 38.695 -76.845 105 35 MD TDWR Andrews Air Force Base
+tatl kffc 33.647 -84.262 327 3 GA TDWR Atlanta
+tbna kohx 35.98 -86.662 249 3 TN TDWR Nashville
+tbos kbox 42.158 -70.933 80 3 MA TDWR Boston
+tbwi klwx 39.09 -76.63 104 35 MD TDWR Baltimore/Wash
+tclt kgsp 35.337 -80.885 265 35 NC TDWR Charlotte
+tcmh kiln 40.006 -82.715 349 35 OH TDWR Columbus
+tcvg kiln 38.898 -84.58 320 35 OH TDWR Cincinnati
+tdal kfwd 32.926 -96.968 189 35 TX TDWR Dallas Love Field
+tday kiln 40.022 -84.123 310 35 OH TDWR Dayton
+tdca klwx 38.759 -76.962 105 35 MD TDWR Washington National
+tden kbou 39.728 -104.526 1737 3 CO TDWR Denver
+tdfw kfwd 33.065 -96.918 178 35 TX TDWR Dallas/Ft Worth
+tdtw kdtx 42.111 -83.515 235 3 MI TDWR Detroit
+tewr kokx 40.593 -74.27 41 35 NJ TDWR Newark
+tfll kmfl 26.143 -80.344 36 3 FL TDWR Fort Lauderdale
+thou khgx 29.516 -95.242 35 3 TX TDWR Houston Hobby
+tiad klwx 39.084 -77.529 144 35 VA TDWR Dulles
+tiah khgx 30.065 -95.567 77 3 TX TDWR Houston International
+tich kict 37.507 -97.437 411 3 KS TDWR Wichita
+tids kind 39.637 -86.436 258 3 IN TDWR Indianapolis
+tjfk kokx 40.589 -73.881 34 35 NY TDWR New York City
+tlas kvef 36.144 -115.007 627 3 NV TDWR Las Vegas
+tlve kcle 41.29 -82.008 283 3 OH TDWR Cleveland
+tmci keax 39.498 -94.742 332 35 MO TDWR Kansas City
+tmco kmlb 28.344 -81.326 51 3 FL TDWR Orlando International
+tmdw klot 41.651 -87.73 232 35 IL TDWR Chicago Midway
+tmem kmeg 34.896 -89.993 147 3 TN TDWR Memphis
+tmia kmfl 25.758 -80.491 38 3 FL TDWR Miami
+tmke kmkx 42.819 -88.046 284 35 WI TDWR Milwaukee
+tmsp kmpx 44.871 -92.933 341 3 MN TDWR Minneapolis
+tmsy klix 30.022 -90.403 30 3 LA TDWR New Orleans
+tokc koun 35.276 -97.51 398 35 OK TDWR Oklahoma City
+tord klot 41.797 -87.858 226 35 IL TDWR Chicago O'Hare
+tpbi kmfl 26.688 -80.273 40 3 FL TDWR West Palm Beach
+tphl kphi 39.949 -75.069 46 3 PA TDWR Philadelphia
+tphx kpsr 33.421 -112.163 331 3 AZ TDWR Phoenix
+tpit kpbz 40.501 -80.486 422 3 PA TDWR Pittsburgh
+trdu krah 36.002 -78.697 156 35 NC TDWR Raleigh Durham
+tsdf klmk 38.046 -85.61 222 3 KY TDWR Louisville
+tsju tjsj 18.474 -66.179 47 3 PR TDWR San Juan
+tslc kslc 40.967 -111.93 1309 3 UT TDWR Salt Lake City
+tstl klsx 38.805 -90.489 197 3 MO TDWR St Louis
+ttpa ktbw 27.86 -82.518 28 3 FL TDWR Tampa Bay
+ttul ktsa 36.071 -95.827 250 3 OK TDWR Tulsa
+DAN1 KCRI 35.238 -97.460 390 1 OK Norman Testbed DAN1
+DOP1 KCRI 35.238 -97.460 390 1 OK Norman Testbed DOP1
+FOP1 KCRI 35.238 -97.460 390 1 OK Norman Testbed FOP1
+NOP3 KCRI 35.238 -97.460 390 1 OK Norman Testbed NOP3
+NOP4 KCRI 35.238 -97.460 390 1 OK Norman Testbed NOP4
+ROP3 KCRI 35.238 -97.460 390 1 OK Norman Testbed ROP3
+ROP4 KCRI 35.238 -97.460 390 1 OK Norman Testbed ROP4
+KULM KULM 32.529 -92.012 55 1 LA Monroe/ULM
+mzzu mzzu 38.906 -92.269 271 1 MO Columbia/Mizzou
+op5r op5r 63.922 -145.833 522 13 AK Fort Greely
+koun, koun, 35.236000, -97.462219, 360, 1, OK, Norman Testbed
+dan1, kcri, 35.238274, -97.460030, 366, 1, OK, BUILD 12 SUPER,RESOLUTION
+dop1, kcri, 35.238274, -97.460030, 366, 1, OK, BUILD 12 RECOMBINED
+fop1, kcri, 35.238274, -97.460030, 366, 1, OK, BUILD 12 RECOMBINED
+rop3, kcri, 35.238274, -97.460030, 366, 1, OK, BUILD 12 SUPER RESOLUTION
+nop3, kcri, 35.238274, -97.460030, 366, 1, OK, BUILD 12 SUPER RESOLUTION
+nop4, kcri, 35.238274, -97.460030, 366, 1, OK, BUILD 12 SUPER RESOLUTION
+rop4, kcri, 35.238274, -97.460030, 366, 1, OK, BUILD 12 SUPER RESOLUTION
+mzzu, mzzu, 38.906, -92.269, 271, 1, MO, Columbia/Mizzou
+kulm, kulm, 32.529, -92.012, 29, 29, LA, Monroe/ULM
+op5r, op5r, 63.922, -145.833, 522, 13, AK, Fort Greely
+k08d, kbis, 48.301448, -102.401416, 684, 1, ND, Stanley ARB
+kxwa, kbis, 48.263439, -103.747327, 729, 1, ND, Williston ARB 
+
+

@@ -1,0 +1,75 @@
+//***************************************************************************
+//***************************************************************************
+//   Script to use BR and ZDR to calculate a rainfall rate
+//   Based on a Convective Z/R relationship Z = 300 * R ^ (1.4)
+//   Based on a Z/ZDR relationship R = 0.0067 * Z^(0.93)/(ZDR^3.43)
+//   Positive values (warm colors) indicate larger values from R(Z/ZDR)
+//   Negative values (cooler colors) indicate larger values from Z/R
+//***************************************************************************
+//***************************************************************************
+Product
+ {
+  Name = "RRDF"              // product name is RRDF, Rainfall Rate Diffence betw. Z/ZDR and Conv. Z/R relationship
+
+  min_br_required = 18       // include only BR above 18 to eliminate likely non-meteorological echoes
+
+//  Resolution = high        //Optional high resolution
+
+  Category 
+   {
+    Missing = 0
+    Minimum = 0
+    Maximum = 12
+    Units   = "in/hr"
+	
+    ColorTable
+     {
+      Units = "in/hr"
+      Step  = 1
+
+	  Color[   12] =           rgb( 128, 128, 128 )
+      Color[    4] = gradient( rgb( 218,   0,   0 ), rgb( 128,   0,   0 ) )
+      Color[    2] = gradient( rgb( 252, 188, 215 ), rgb( 229, 106, 179 ) )
+      Color[    1] = gradient( rgb( 255, 255,  96 ), rgb( 255, 144,  70 ) )
+      Color[    0] =           rgb( 255, 255, 255 )
+	  Color[   -1] = gradient( rgb(  32, 200, 180 ), rgb(  32, 220,  32 ) )
+	  Color[   -2] = gradient( rgb(   0,   0, 152 ), rgb(  35, 152, 210 ) )
+	  Color[  -12] = gradient( rgb( 100,  80, 140 ), rgb( 140, 120, 180 ) )
+     }
+   }
+ }
+
+
+//**********************************************************************
+Program
+ {
+
+  enumerate levels                                                   // enumerate all levels
+   {
+    float BR;
+
+    BR = BRfromHGT( level.height );                                  // sample BR 
+
+    if( BR > 18 )                                                    // if BR > 18, do calculation and return result
+     {
+      float Z;                                                       // declare variables in the calculation
+      float ZDR;                                                     // 
+      float RRCV;
+      float RRZDR; 
+	  float RRDF; 
+
+      Z   = pow( 10, BR / 10 );                                      // convert BR from dbz to z
+      ZDR = ZDRfromHGT( level.height );                              // sample ZDR
+
+      RRCV =  min( 0.0006692917 * pow( Z , 0.714 ), 12.0);                          //compute rain rate from convective Z/R and cap at 12 in/hr
+      RRZDR = min( 0.00026377967 * pow( Z , 0.927 ) / ( pow( 10 , 0.343 ) * ZDR ), 12.0);     // compute rain rate from Z and ZDR in in/hr and cap at 12 in/hr
+	  
+      return (RRZDR - RRCV);                       // output rain rate difference in in/hr
+	 }
+
+    break;								               // break out of enum on first level
+   }
+  
+  return constants.ND;                                               // return no data
+ }
+

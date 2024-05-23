@@ -1,0 +1,31 @@
+//******************************************************************************
+
+Product
+   {
+      Name = "fCC"
+      Category = "CC"
+      resolution = high
+      min_br_required = 20
+   }
+
+//******************************************************************************
+
+Program
+ {
+  float filtcc;
+  float br;
+  float cc;   
+
+  br = BRfromHGT( constants.hgt_lowest );
+  cc =  CCfromHGT( constants.hgt_lowest );
+  if(BR >= 35 && cc <= 0.9 && cc >= 0.3)
+    {
+      filtcc =  cc;
+    }
+   else
+    {
+      filtcc = 0;
+    }
+
+  return filtcc;
+ }
